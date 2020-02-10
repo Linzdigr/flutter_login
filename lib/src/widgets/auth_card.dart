@@ -671,6 +671,36 @@ class _LoginCardState extends State<_LoginCard> with TickerProviderStateMixin {
                 _buildForgotPassword(theme, messages),
                 _buildSubmitButton(theme, messages, auth),
                 _buildSwitchAuthButton(theme, messages, auth),
+                Row(
+                  children: <Widget>[
+                    Expanded(
+                      child: IconButton(
+                        alignment: Alignment.center,
+                        icon: new Image.asset('assets/images/google.png'),
+                        tooltip: 'Connexion avec Google',
+                        onPressed: () {
+                          
+                        },
+                      ),
+                    ),
+                    Text('ou',
+                      textAlign: TextAlign.center,
+                      style: TextStyle(
+                        fontSize: 11
+                      ),
+                    ),
+                    Expanded(
+                      child: IconButton(
+                        alignment: Alignment.center,
+                        icon: new Image.asset('assets/images/facebook.png'),
+                        tooltip: 'Connexion avec Facebook',
+                        onPressed: () {
+                          
+                        },
+                      ),
+                    )
+                  ],
+                )
               ],
             ),
           ),

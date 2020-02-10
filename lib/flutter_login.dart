@@ -573,6 +573,10 @@ class _FlutterLoginState extends State<FlutterLogin>
                   alignment: Alignment.center,
                   children: <Widget>[
                     Positioned(
+                      top: cardTopPosition - headerHeight - headerMargin,
+                      child: _buildHeader(headerHeight, loginTheme),
+                    ),
+                    Positioned(
                       child: AuthCard(
                         key: authCardKey,
                         padding: EdgeInsets.only(top: cardTopPosition),
@@ -582,10 +586,6 @@ class _FlutterLoginState extends State<FlutterLogin>
                         onSubmit: _reverseHeaderAnimation,
                         onSubmitCompleted: widget.onSubmitAnimationCompleted,
                       ),
-                    ),
-                    Positioned(
-                      top: cardTopPosition - headerHeight - headerMargin,
-                      child: _buildHeader(headerHeight, loginTheme),
                     ),
                   ],
                 ),
