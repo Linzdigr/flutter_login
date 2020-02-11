@@ -169,7 +169,7 @@ class LoginScreen extends StatelessWidget {
         return _recoverPassword(name);
         // Show new password dialog
       },
-      showDebugButtons: true,
+      // showDebugButtons: true,
     );
   }
 }

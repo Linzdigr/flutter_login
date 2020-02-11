@@ -8,7 +8,6 @@ import 'package:flutter/rendering.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'src/providers/login_theme.dart';
-import 'src/widgets/null_widget.dart';
 import 'theme.dart';
 import 'src/dart_helper.dart';
 import 'src/color_helper.dart';
@@ -141,13 +140,11 @@ class __HeaderState extends State<_Header> {
     final logoHeight = min(widget.height - _titleHeight - gap, kMaxLogoHeight);
     final displayLogo = widget.logoPath != null && logoHeight >= kMinLogoHeight;
 
-    Widget logo = displayLogo
-        ? Image.asset(
-            widget.logoPath,
-            filterQuality: FilterQuality.high,
-            height: logoHeight,
-          )
-        : NullWidget();
+    Widget logo = Image.asset(
+      widget.logoPath,
+      filterQuality: FilterQuality.high,
+      height: logoHeight,
+    );
 
     if (widget.logoTag != null) {
       logo = Hero(
@@ -177,27 +174,52 @@ class __HeaderState extends State<_Header> {
       title = null;
     }
 
-    return SizedBox(
-      height: widget.height,
-      child: Column(
+    Widget header;
+
+    if(displayLogo) {
+      header = Column(
         mainAxisAlignment: MainAxisAlignment.end,
         children: <Widget>[
-          if (displayLogo)
-            FadeIn(
-              controller: widget.logoController,
-              offset: .25,
-              fadeDirection: FadeDirection.topToBottom,
-              child: logo,
-            ),
+          FadeIn(
+            controller: widget.logoController,
+            offset: .25,
+            fadeDirection: FadeDirection.topToBottom,
+            child: logo,
+          ),
           SizedBox(height: gap),
           FadeIn(
             controller: widget.titleController,
             offset: .5,
             fadeDirection: FadeDirection.topToBottom,
             child: title,
+          )
+        ]
+      );
+    } else {
+      header = Row(
+        crossAxisAlignment: CrossAxisAlignment.center,
+        children: <Widget>[
+          FadeIn(
+            controller: widget.logoController,
+            offset: .25,
+            fadeDirection: FadeDirection.topToBottom,
+            child: logo,
           ),
-        ],
-      ),
+          FadeIn(
+            controller: widget.titleController,
+            offset: .5,
+            fadeDirection: FadeDirection.topToBottom,
+            child: title,
+          )
+        ]
+      );
+    }
+
+    return SafeArea(
+      child: SizedBox(
+        height: widget.height,
+        child: header
+      )
     );
   }
 }
