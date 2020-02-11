@@ -205,7 +205,7 @@ class __HeaderState extends State<_Header> {
             fadeDirection: FadeDirection.topToBottom,
             child: logo,
           ),
-          SizedBox(width: gap),
+          SizedBox(width: 10),
           FadeIn(
             controller: widget.titleController,
             offset: .5,
@@ -216,11 +216,9 @@ class __HeaderState extends State<_Header> {
       );
     }
 
-    return SafeArea(
-      child: SizedBox(
-        height: widget.height,
-        child: header
-      )
+    return SizedBox(
+      height: widget.height,
+      child: header
     );
   }
 }
@@ -240,8 +238,11 @@ class FlutterLogin extends StatefulWidget {
     this.onSubmitAnimationCompleted,
     this.logoTag,
     this.titleTag,
+    this.constraints,
     this.showDebugButtons = false,
   }) : super(key: key);
+
+  final Size constraints;
 
   /// Called when the user hit the submit button when in sign up mode
   final AuthCallback onSignup;
@@ -553,7 +554,7 @@ class _FlutterLoginState extends State<FlutterLogin> with TickerProviderStateMix
   Widget build(BuildContext context) {
     final loginTheme = widget.theme ?? LoginTheme();
     final theme = _mergeTheme(theme: Theme.of(context), loginTheme: loginTheme);
-    final deviceSize = MediaQuery.of(context).size;
+    final deviceSize = widget.constraints ?? MediaQuery.of(context).size;
     const headerMargin = 15;
     const cardInitialHeight = 300;
     final cardTopPosition = deviceSize.height / 2 - cardInitialHeight / 2;

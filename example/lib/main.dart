@@ -56,7 +56,9 @@ class MyApp extends StatelessWidget {
       ),
       home: ResponsiveSafeArea(
         builder: (context, size) {
-          return LoginScreen();
+          return LoginScreen(
+            size: size
+          );
         }
       ),
       navigatorObservers: [TransitionRouteObserver()],

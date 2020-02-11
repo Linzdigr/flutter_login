@@ -9,6 +9,10 @@ import 'users.dart';
 class LoginScreen extends StatelessWidget {
   static const routeName = '/auth';
 
+  final Size size;
+
+  LoginScreen({this.size});
+
   Duration get loginTime => Duration(milliseconds: timeDilation.ceil() * 2250);
 
   Future<String> _loginUser(LoginData data) {
@@ -44,6 +48,7 @@ class LoginScreen extends StatelessWidget {
       logo: 'assets/images/ecorp.png',
       logoTag: Constants.logoTag,
       titleTag: Constants.titleTag,
+      constraints: this.size,
       // messages: LoginMessages(
       //   usernameHint: 'Username',
       //   passwordHint: 'Pass',
@@ -169,7 +174,7 @@ class LoginScreen extends StatelessWidget {
         return _recoverPassword(name);
         // Show new password dialog
       },
-      showDebugButtons: true,
+      // showDebugButtons: true,
     );
   }
 }
