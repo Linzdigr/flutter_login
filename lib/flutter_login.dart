@@ -138,12 +138,12 @@ class __HeaderState extends State<_Header> {
     final theme = Theme.of(context);
     const gap = 5.0;
     final logoHeight = min(widget.height - _titleHeight - gap, kMaxLogoHeight);
-    final displayLogo = widget.logoPath != null && logoHeight >= kMinLogoHeight;
+    final displayBigLogo = widget.logoPath != null && logoHeight >= kMinLogoHeight;
 
     Widget logo = Image.asset(
       widget.logoPath,
       filterQuality: FilterQuality.high,
-      height: logoHeight,
+      height: displayBigLogo ? logoHeight : 70,
     );
 
     if (widget.logoTag != null) {
@@ -176,17 +176,16 @@ class __HeaderState extends State<_Header> {
 
     Widget header;
 
-    if(displayLogo) {
+    if(displayBigLogo) {
       header = Column(
         mainAxisAlignment: MainAxisAlignment.end,
         children: <Widget>[
-          if (displayLogo)
-            FadeIn(
-              controller: widget.logoController,
-              offset: .25,
-              fadeDirection: FadeDirection.topToBottom,
-              child: logo,
-            ),
+          FadeIn(
+            controller: widget.logoController,
+            offset: .25,
+            fadeDirection: FadeDirection.topToBottom,
+            child: logo,
+          ),
           SizedBox(height: gap),
           FadeIn(
             controller: widget.titleController,
@@ -206,6 +205,7 @@ class __HeaderState extends State<_Header> {
             fadeDirection: FadeDirection.topToBottom,
             child: logo,
           ),
+          SizedBox(width: gap),
           FadeIn(
             controller: widget.titleController,
             offset: .5,
@@ -310,8 +310,7 @@ class FlutterLogin extends StatefulWidget {
   _FlutterLoginState createState() => _FlutterLoginState();
 }
 
-class _FlutterLoginState extends State<FlutterLogin>
-    with TickerProviderStateMixin {
+class _FlutterLoginState extends State<FlutterLogin> with TickerProviderStateMixin {
   final GlobalKey<AuthCardState> authCardKey = GlobalKey();
   static const loadingDuration = const Duration(milliseconds: 400);
   AnimationController _loadingController;
@@ -596,10 +595,6 @@ class _FlutterLoginState extends State<FlutterLogin>
                   alignment: Alignment.center,
                   children: <Widget>[
                     Positioned(
-                      top: cardTopPosition - headerHeight - headerMargin,
-                      child: _buildHeader(headerHeight, loginTheme),
-                    ),
-                    Positioned(
                       child: AuthCard(
                         key: authCardKey,
                         padding: EdgeInsets.only(top: cardTopPosition),
@@ -609,6 +604,10 @@ class _FlutterLoginState extends State<FlutterLogin>
                         onSubmit: _reverseHeaderAnimation,
                         onSubmitCompleted: widget.onSubmitAnimationCompleted,
                       ),
+                    ),
+                    Positioned(
+                      top: cardTopPosition - headerHeight - headerMargin,
+                      child: _buildHeader(headerHeight, loginTheme),
                     ),
                   ],
                 ),

@@ -595,6 +595,34 @@ class _LoginCardState extends State<_LoginCard> with TickerProviderStateMixin {
       ),
     );
   }
+  
+  Widget _buildGAuthButton() {
+    return ScaleTransition(
+      scale: _buttonScaleAnimation,
+      child: IconButton(
+        alignment: Alignment.center,
+        icon: new Image.asset('assets/images/google.png'),
+        tooltip: 'Connexion avec Google',
+        onPressed: () {
+          
+        },
+      )
+    );
+  }
+
+  Widget _buildFAuthButton() {
+    return ScaleTransition(
+      scale: _buttonScaleAnimation,
+      child: IconButton(
+        alignment: Alignment.center,
+        icon: new Image.asset('assets/images/facebook.png'),
+        tooltip: 'Connexion avec Facebook',
+        onPressed: () {
+          
+        },
+      ),
+    );
+  }
 
   Widget _buildSwitchAuthButton(ThemeData theme, LoginMessages messages, Auth auth) {
     return FadeIn(
@@ -674,30 +702,19 @@ class _LoginCardState extends State<_LoginCard> with TickerProviderStateMixin {
                 Row(
                   children: <Widget>[
                     Expanded(
-                      child: IconButton(
-                        alignment: Alignment.center,
-                        icon: new Image.asset('assets/images/google.png'),
-                        tooltip: 'Connexion avec Google',
-                        onPressed: () {
-                          
-                        },
-                      ),
+                      child: _buildGAuthButton(),
                     ),
-                    Text('ou',
-                      textAlign: TextAlign.center,
-                      style: TextStyle(
-                        fontSize: 11
-                      ),
+                    ScaleTransition(
+                      scale: _buttonScaleAnimation,
+                      child: Text('ou',
+                        textAlign: TextAlign.center,
+                        style: TextStyle(
+                          fontSize: 11
+                        ),
+                      )
                     ),
                     Expanded(
-                      child: IconButton(
-                        alignment: Alignment.center,
-                        icon: new Image.asset('assets/images/facebook.png'),
-                        tooltip: 'Connexion avec Facebook',
-                        onPressed: () {
-                          
-                        },
-                      ),
+                      child: _buildFAuthButton(),
                     )
                   ],
                 )
