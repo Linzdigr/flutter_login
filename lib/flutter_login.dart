@@ -143,7 +143,7 @@ class __HeaderState extends State<_Header> {
     Widget logo = Image.asset(
       widget.logoPath,
       filterQuality: FilterQuality.high,
-      height: displayBigLogo ? logoHeight : 70,
+      height: displayBigLogo ? logoHeight / 1.5 : 70,
     );
 
     if (widget.logoTag != null) {
@@ -554,7 +554,7 @@ class _FlutterLoginState extends State<FlutterLogin> with TickerProviderStateMix
   Widget build(BuildContext context) {
     final loginTheme = widget.theme ?? LoginTheme();
     final theme = _mergeTheme(theme: Theme.of(context), loginTheme: loginTheme);
-    final deviceSize = widget.constraints ?? MediaQuery.of(context).size;
+    final Size deviceSize = widget.constraints ?? MediaQuery.of(context).size;
     const headerMargin = 15;
     const cardInitialHeight = 300;
     final cardTopPosition = deviceSize.height / 2 - cardInitialHeight / 2;
@@ -602,6 +602,7 @@ class _FlutterLoginState extends State<FlutterLogin> with TickerProviderStateMix
                         loadingController: _loadingController,
                         emailValidator: emailValidator,
                         passwordValidator: passwordValidator,
+                        constraints: deviceSize,
                         onSubmit: _reverseHeaderAnimation,
                         onSubmitCompleted: widget.onSubmitAnimationCompleted,
                       ),

@@ -26,6 +26,7 @@ class AuthCard extends StatefulWidget {
     this.loadingController,
     this.emailValidator,
     this.passwordValidator,
+    this.constraints,
     this.onSubmit,
     this.onSubmitCompleted,
   }) : super(key: key);
@@ -34,6 +35,7 @@ class AuthCard extends StatefulWidget {
   final AnimationController loadingController;
   final FormFieldValidator<String> emailValidator;
   final FormFieldValidator<String> passwordValidator;
+  final Size constraints;
   final Function onSubmit;
   final Function onSubmitCompleted;
 
@@ -164,7 +166,7 @@ class AuthCardState extends State<AuthCard> with TickerProviderStateMixin {
 
   Future<void> _forwardChangeRouteAnimation() {
     final isLogin = Provider.of<Auth>(context, listen: false).isLogin;
-    final deviceSize = MediaQuery.of(context).size;
+    final deviceSize = widget.constraints ?? MediaQuery.of(context).size;
     final cardSize = getWidgetSize(_cardKey);
     // add .25 to make sure the scaling will cover the whole screen
     final widthRatio =
@@ -263,7 +265,7 @@ class AuthCardState extends State<AuthCard> with TickerProviderStateMixin {
   @override
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
-    final deviceSize = MediaQuery.of(context).size;
+    final deviceSize = widget.constraints ?? MediaQuery.of(context).size;
     Widget current = Container(
       height: deviceSize.height,
       width: deviceSize.width,
@@ -283,6 +285,7 @@ class AuthCardState extends State<AuthCard> with TickerProviderStateMixin {
                   theme: theme,
                   child: _LoginCard(
                     key: _cardKey,
+                    constraints: deviceSize,
                     loadingController: _isLoadingFirstTime
                         ? _formLoadingController
                         : (_formLoadingController..value = 1.0),
@@ -331,6 +334,7 @@ class _LoginCard extends StatefulWidget {
     this.loadingController,
     @required this.emailValidator,
     @required this.passwordValidator,
+    this.constraints,
     @required this.onSwitchRecoveryPassword,
     this.onSwitchAuth,
     this.onSubmitCompleted,
@@ -339,6 +343,7 @@ class _LoginCard extends StatefulWidget {
   final AnimationController loadingController;
   final FormFieldValidator<String> emailValidator;
   final FormFieldValidator<String> passwordValidator;
+  final Size constraints;
   final Function onSwitchRecoveryPassword;
   final Function onSwitchAuth;
   final Function onSubmitCompleted;
@@ -599,13 +604,20 @@ class _LoginCardState extends State<_LoginCard> with TickerProviderStateMixin {
   Widget _buildGAuthButton() {
     return ScaleTransition(
       scale: _buttonScaleAnimation,
-      child: IconButton(
-        alignment: Alignment.center,
-        icon: new Image.asset('assets/images/google.png'),
-        tooltip: 'Connexion avec Google',
-        onPressed: () {
-          
-        },
+      child: Material(
+        shape: CircleBorder(),
+        clipBehavior: Clip.hardEdge,
+        color: Colors.transparent,
+        child: Ink.image(
+          image: AssetImage('assets/images/google.png'),
+          fit: BoxFit.scaleDown,
+          width: 30.0,
+          height: 30.0,
+          child: InkWell(
+            splashColor: Colors.white,
+            onTap: () {},
+          ),
+        ),
       )
     );
   }
@@ -613,14 +625,21 @@ class _LoginCardState extends State<_LoginCard> with TickerProviderStateMixin {
   Widget _buildFAuthButton() {
     return ScaleTransition(
       scale: _buttonScaleAnimation,
-      child: IconButton(
-        alignment: Alignment.center,
-        icon: new Image.asset('assets/images/facebook.png'),
-        tooltip: 'Connexion avec Facebook',
-        onPressed: () {
-          
-        },
-      ),
+      child: Material(
+        shape: CircleBorder(),
+        clipBehavior: Clip.hardEdge,
+        color: Colors.transparent,
+        child: Ink.image(
+          image: AssetImage('assets/images/facebook.png'),
+          fit: BoxFit.scaleDown,
+          width: 30.0,
+          height: 30.0,
+          child: InkWell(
+            splashColor: Colors.white,
+            onTap: () {},
+          ),
+        ),
+      )
     );
   }
 
@@ -650,7 +669,7 @@ class _LoginCardState extends State<_LoginCard> with TickerProviderStateMixin {
     final isLogin = auth.isLogin;
     final messages = Provider.of<LoginMessages>(context, listen: false);
     final theme = Theme.of(context);
-    final deviceSize = MediaQuery.of(context).size;
+    final deviceSize = widget.constraints ?? MediaQuery.of(context).size;
     final cardWidth = min(deviceSize.width * 0.75, 360.0);
     const cardPadding = 16.0;
     final textFieldWidth = cardWidth - cardPadding * 2;
