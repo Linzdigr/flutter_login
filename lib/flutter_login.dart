@@ -180,12 +180,13 @@ class __HeaderState extends State<_Header> {
       header = Column(
         mainAxisAlignment: MainAxisAlignment.end,
         children: <Widget>[
-          FadeIn(
-            controller: widget.logoController,
-            offset: .25,
-            fadeDirection: FadeDirection.topToBottom,
-            child: logo,
-          ),
+          if (displayLogo)
+            FadeIn(
+              controller: widget.logoController,
+              offset: .25,
+              fadeDirection: FadeDirection.topToBottom,
+              child: logo,
+            ),
           SizedBox(height: gap),
           FadeIn(
             controller: widget.titleController,
