@@ -407,7 +407,7 @@ class _LoginCardState extends State<_LoginCard> with TickerProviderStateMixin {
     );
     _submitController = AnimationController(
       vsync: this,
-      duration: Duration(milliseconds: 1000),
+      duration: Duration(milliseconds: 5000),
     );
 
     _nameTextFieldLoadingAnimationInterval = const Interval(0, .85);
@@ -511,7 +511,7 @@ class _LoginCardState extends State<_LoginCard> with TickerProviderStateMixin {
       loadingController: _loadingController,
       interval: _nameTextFieldLoadingAnimationInterval,
       labelText: messages.usernameHint,
-      prefixIcon: Icon(FontAwesomeIcons.solidUserCircle),
+      prefixIcon: Icon(FontAwesomeIcons.at, size: 17),
       keyboardType: TextInputType.emailAddress,
       textInputAction: TextInputAction.next,
       onFieldSubmitted: (value) {
@@ -656,7 +656,7 @@ class _LoginCardState extends State<_LoginCard> with TickerProviderStateMixin {
         ),
         disabledTextColor: theme.primaryColor,
         onPressed: buttonEnabled ? _switchAuthMode : null,
-        padding: EdgeInsets.symmetric(horizontal: 30.0, vertical: 4),
+        padding: EdgeInsets.symmetric(horizontal: 30.0, vertical: 17),
         materialTapTargetSize: MaterialTapTargetSize.shrinkWrap,
         textColor: theme.primaryColor,
       ),
@@ -718,25 +718,28 @@ class _LoginCardState extends State<_LoginCard> with TickerProviderStateMixin {
                 _buildForgotPassword(theme, messages),
                 _buildSubmitButton(theme, messages, auth),
                 _buildSwitchAuthButton(theme, messages, auth),
-                Row(
-                  children: <Widget>[
-                    Expanded(
-                      child: _buildGAuthButton(),
-                    ),
-                    ScaleTransition(
-                      scale: _buttonScaleAnimation,
-                      child: Text('ou',
-                        textAlign: TextAlign.center,
-                        style: TextStyle(
-                          fontSize: 11
-                        ),
+                Container(
+                  padding: EdgeInsets.only(bottom: 5),
+                  child: Row(
+                    children: <Widget>[
+                      Expanded(
+                        child: _buildGAuthButton(),
+                      ),
+                      ScaleTransition(
+                        scale: _buttonScaleAnimation,
+                        child: Text('ou',
+                          textAlign: TextAlign.center,
+                          style: TextStyle(
+                            fontSize: 11
+                          ),
+                        )
+                      ),
+                      Expanded(
+                        child: _buildFAuthButton(),
                       )
-                    ),
-                    Expanded(
-                      child: _buildFAuthButton(),
-                    )
-                  ],
-                )
+                    ],
+                  ),
+                ),
               ],
             ),
           ),

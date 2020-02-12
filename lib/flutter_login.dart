@@ -240,9 +240,12 @@ class FlutterLogin extends StatefulWidget {
     this.titleTag,
     this.constraints,
     this.showDebugButtons = false,
+    this.background
   }) : super(key: key);
 
   final Size constraints;
+
+  final Widget background;
 
   /// Called when the user hit the submit button when in sign up mode
   final AuthCallback onSignup;
@@ -581,20 +584,17 @@ class _FlutterLoginState extends State<FlutterLogin> with TickerProviderStateMix
         // resizeToAvoidBottomInset: false,
         body: Stack(
           children: <Widget>[
-            GradientBox(
-              colors: [
-                loginTheme.pageColorLight ?? theme.primaryColor,
-                loginTheme.pageColorDark ?? theme.primaryColorDark,
-              ],
-              begin: Alignment.topLeft,
-              end: Alignment.bottomRight,
-            ),
             SingleChildScrollView(
               child: Theme(
                 data: theme,
                 child: Stack(
                   alignment: Alignment.center,
                   children: <Widget>[
+                    Positioned(
+                      width: widget.constraints.width,
+                      height: widget.constraints.height,
+                      child: widget.background,
+                    ),
                     Positioned(
                       child: AuthCard(
                         key: authCardKey,
@@ -610,7 +610,7 @@ class _FlutterLoginState extends State<FlutterLogin> with TickerProviderStateMix
                     Positioned(
                       top: cardTopPosition - headerHeight - headerMargin,
                       child: _buildHeader(headerHeight, loginTheme),
-                    ),
+                    )
                   ],
                 ),
               ),

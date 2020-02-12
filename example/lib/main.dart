@@ -54,48 +54,12 @@ class MyApp extends StatelessWidget {
           overline: TextStyle(fontFamily: 'NotoSans'),
         ),
       ),
-      home: ResponsiveSafeArea(
-        builder: (context, size) {
-          return LoginScreen(
-            size: size
-          );
-        }
-      ),
+      initialRoute: LoginScreen.routeName,
       navigatorObservers: [TransitionRouteObserver()],
       routes: {
         LoginScreen.routeName: (context) => LoginScreen(),
         DashboardScreen.routeName: (context) => DashboardScreen(),
       },
-    );
-  }
-}
-
-
-typedef ResponsiveBuilder = Widget Function(
-  BuildContext context,
-  Size size,
-);
-
-class ResponsiveSafeArea extends StatelessWidget {
-  const ResponsiveSafeArea({
-    @required ResponsiveBuilder builder,
-    Key key,
-  })  : responsiveBuilder = builder,
-        super(key: key);
-
-  final ResponsiveBuilder responsiveBuilder;
-
-  @override
-  Widget build(BuildContext context) {
-    return SafeArea(
-      child: LayoutBuilder(
-        builder: (context, constraints) {
-          return responsiveBuilder(
-            context,
-            constraints.biggest,
-          );
-        },
-      ),
     );
   }
 }
