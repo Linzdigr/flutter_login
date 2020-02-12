@@ -407,7 +407,7 @@ class _LoginCardState extends State<_LoginCard> with TickerProviderStateMixin {
     );
     _submitController = AnimationController(
       vsync: this,
-      duration: Duration(milliseconds: 5000),
+      duration: Duration(milliseconds: 1000),
     );
 
     _nameTextFieldLoadingAnimationInterval = const Interval(0, .85);
