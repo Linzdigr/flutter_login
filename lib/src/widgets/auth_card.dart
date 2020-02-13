@@ -29,6 +29,8 @@ class AuthCard extends StatefulWidget {
     this.constraints,
     this.onSubmit,
     this.onSubmitCompleted,
+    this.onTapGoogle,
+    this.onTapFacebook
   }) : super(key: key);
 
   final EdgeInsets padding;
@@ -38,6 +40,8 @@ class AuthCard extends StatefulWidget {
   final Size constraints;
   final Function onSubmit;
   final Function onSubmitCompleted;
+  final Function onTapGoogle;
+  final Function onTapFacebook;
 
   @override
   AuthCardState createState() => AuthCardState();
@@ -297,6 +301,8 @@ class AuthCardState extends State<AuthCard> with TickerProviderStateMixin {
                         widget?.onSubmitCompleted();
                       });
                     },
+                    onTapGoogle: widget.onTapGoogle,
+                    onTapFacebook: widget.onTapFacebook,
                   ),
                 )
               : _RecoverCard(
@@ -338,6 +344,8 @@ class _LoginCard extends StatefulWidget {
     @required this.onSwitchRecoveryPassword,
     this.onSwitchAuth,
     this.onSubmitCompleted,
+    this.onTapGoogle,
+    this.onTapFacebook
   }) : super(key: key);
 
   final AnimationController loadingController;
@@ -347,6 +355,8 @@ class _LoginCard extends StatefulWidget {
   final Function onSwitchRecoveryPassword;
   final Function onSwitchAuth;
   final Function onSubmitCompleted;
+  final Function onTapGoogle;
+  final Function onTapFacebook;
 
   @override
   _LoginCardState createState() => _LoginCardState();
@@ -601,7 +611,7 @@ class _LoginCardState extends State<_LoginCard> with TickerProviderStateMixin {
     );
   }
   
-  Widget _buildGAuthButton() {
+  Widget _buildGAuthButton(Function onTap) {
     return ScaleTransition(
       scale: _buttonScaleAnimation,
       child: Material(
@@ -615,14 +625,14 @@ class _LoginCardState extends State<_LoginCard> with TickerProviderStateMixin {
           height: 30.0,
           child: InkWell(
             splashColor: Colors.white,
-            onTap: () {},
+            onTap: onTap,
           ),
         ),
       )
     );
   }
 
-  Widget _buildFAuthButton() {
+  Widget _buildFAuthButton(Function onTap) {
     return ScaleTransition(
       scale: _buttonScaleAnimation,
       child: Material(
@@ -636,7 +646,7 @@ class _LoginCardState extends State<_LoginCard> with TickerProviderStateMixin {
           height: 30.0,
           child: InkWell(
             splashColor: Colors.white,
-            onTap: () {},
+            onTap: onTap,
           ),
         ),
       )
@@ -723,7 +733,7 @@ class _LoginCardState extends State<_LoginCard> with TickerProviderStateMixin {
                   child: Row(
                     children: <Widget>[
                       Expanded(
-                        child: _buildGAuthButton(),
+                        child: _buildGAuthButton(widget.onTapGoogle),
                       ),
                       ScaleTransition(
                         scale: _buttonScaleAnimation,
@@ -735,7 +745,7 @@ class _LoginCardState extends State<_LoginCard> with TickerProviderStateMixin {
                         )
                       ),
                       Expanded(
-                        child: _buildFAuthButton(),
+                        child: _buildFAuthButton(widget.onTapFacebook),
                       )
                     ],
                   ),

@@ -240,12 +240,18 @@ class FlutterLogin extends StatefulWidget {
     this.titleTag,
     this.constraints,
     this.showDebugButtons = false,
-    this.background
+    this.background,
+    this.onTapGoogle,
+    this.onTapFacebook
   }) : super(key: key);
 
   final Size constraints;
 
   final Widget background;
+
+  final Function onTapGoogle;
+
+  final Function onTapFacebook;
 
   /// Called when the user hit the submit button when in sign up mode
   final AuthCallback onSignup;
@@ -605,6 +611,8 @@ class _FlutterLoginState extends State<FlutterLogin> with TickerProviderStateMix
                         constraints: deviceSize,
                         onSubmit: _reverseHeaderAnimation,
                         onSubmitCompleted: widget.onSubmitAnimationCompleted,
+                        onTapGoogle: widget.onTapGoogle,
+                        onTapFacebook: widget.onTapFacebook,
                       ),
                     ),
                     Positioned(

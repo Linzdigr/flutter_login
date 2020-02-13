@@ -163,6 +163,12 @@ class LoginScreen extends StatelessWidget {
                 )
               ]
             ),
+            onTapGoogle: () {
+              Navigator.of(context).pushNamed('google-oauth');
+            },
+            onTapFacebook: () {
+              Navigator.of(context).pushNamed('facebook-oauth');
+            },
             emailValidator: (value) {
               if (!value.contains('@') || !value.endsWith('.com')) {
                 return "Email must contain '@' and end with '.com'";
