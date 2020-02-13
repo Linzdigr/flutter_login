@@ -242,7 +242,11 @@ class FlutterLogin extends StatefulWidget {
     this.showDebugButtons = false,
     this.background,
     this.onTapGoogle,
-    this.onTapFacebook
+    this.onTapFacebook,
+    this.emailIcon,
+    this.passwordIcon,
+    this.showPasswordIcon,
+    this.hidePasswordIcon
   }) : super(key: key);
 
   final Size constraints;
@@ -252,6 +256,14 @@ class FlutterLogin extends StatefulWidget {
   final Function onTapGoogle;
 
   final Function onTapFacebook;
+
+  final Icon emailIcon;
+
+  final Icon passwordIcon;
+
+  final Icon showPasswordIcon;
+
+  final Icon hidePasswordIcon;
 
   /// Called when the user hit the submit button when in sign up mode
   final AuthCallback onSignup;
@@ -609,6 +621,10 @@ class _FlutterLoginState extends State<FlutterLogin> with TickerProviderStateMix
                         emailValidator: emailValidator,
                         passwordValidator: passwordValidator,
                         constraints: deviceSize,
+                        emailIcon: widget.emailIcon,
+                        passwordIcon: widget.passwordIcon,
+                        hidePasswordIcon: widget.hidePasswordIcon,
+                        showPasswordIcon: widget.showPasswordIcon,
                         onSubmit: _reverseHeaderAnimation,
                         onSubmitCompleted: widget.onSubmitAnimationCompleted,
                         onTapGoogle: widget.onTapGoogle,

@@ -257,6 +257,9 @@ class AnimatedPasswordTextFormField extends StatefulWidget {
     this.labelText,
     this.keyboardType,
     this.textInputAction,
+    this.prefixIcon,
+    this.showPasswordIcon,
+    this.hidePasswordIcon,
     this.controller,
     this.focusNode,
     this.validator,
@@ -274,6 +277,9 @@ class AnimatedPasswordTextFormField extends StatefulWidget {
   final String labelText;
   final TextInputType keyboardType;
   final TextInputAction textInputAction;
+  final Icon prefixIcon;
+  final Icon showPasswordIcon;
+  final Icon hidePasswordIcon;
   final TextEditingController controller;
   final FocusNode focusNode;
   final FormFieldValidator<String> validator;
@@ -299,7 +305,7 @@ class _AnimatedPasswordTextFormFieldState
       width: widget.animatedWidth,
       enabled: widget.enabled,
       labelText: widget.labelText,
-      prefixIcon: Icon(FontAwesomeIcons.lock, size: 17),
+      prefixIcon: widget.prefixIcon ?? Icon(FontAwesomeIcons.lock, size: 17),
       suffixIcon: GestureDetector(
         onTap: () => setState(() => _obscureText = !_obscureText),
         dragStartBehavior: DragStartBehavior.down,
@@ -314,12 +320,12 @@ class _AnimatedPasswordTextFormFieldState
               children: <Widget>[bottomChild, topChild],
             );
           },
-          firstChild: Icon(
+          firstChild: widget.showPasswordIcon ?? Icon(
             Icons.visibility,
             size: 25.0,
             semanticLabel: 'show password',
           ),
-          secondChild: Icon(
+          secondChild: widget.hidePasswordIcon ?? Icon(
             Icons.visibility_off,
             size: 25.0,
             semanticLabel: 'hide password',

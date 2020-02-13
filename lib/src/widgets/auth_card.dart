@@ -27,10 +27,14 @@ class AuthCard extends StatefulWidget {
     this.emailValidator,
     this.passwordValidator,
     this.constraints,
+    this.emailIcon,
+    this.passwordIcon,
+    this.showPasswordIcon,
+    this.hidePasswordIcon,
     this.onSubmit,
     this.onSubmitCompleted,
     this.onTapGoogle,
-    this.onTapFacebook
+    this.onTapFacebook,
   }) : super(key: key);
 
   final EdgeInsets padding;
@@ -38,6 +42,10 @@ class AuthCard extends StatefulWidget {
   final FormFieldValidator<String> emailValidator;
   final FormFieldValidator<String> passwordValidator;
   final Size constraints;
+  final Icon emailIcon;
+  final Icon passwordIcon;
+  final Icon showPasswordIcon;
+  final Icon hidePasswordIcon;
   final Function onSubmit;
   final Function onSubmitCompleted;
   final Function onTapGoogle;
@@ -295,6 +303,10 @@ class AuthCardState extends State<AuthCard> with TickerProviderStateMixin {
                         : (_formLoadingController..value = 1.0),
                     emailValidator: widget.emailValidator,
                     passwordValidator: widget.passwordValidator,
+                    emailIcon: widget.emailIcon,
+                    passwordIcon: widget.passwordIcon,
+                    hidePasswordIcon: widget.hidePasswordIcon,
+                    showPasswordIcon: widget.showPasswordIcon,
                     onSwitchRecoveryPassword: () => _switchRecovery(true),
                     onSubmitCompleted: () {
                       _forwardChangeRouteAnimation().then((_) {
@@ -342,6 +354,10 @@ class _LoginCard extends StatefulWidget {
     @required this.passwordValidator,
     this.constraints,
     @required this.onSwitchRecoveryPassword,
+    this.emailIcon,
+    this.passwordIcon,
+    this.showPasswordIcon,
+    this.hidePasswordIcon,
     this.onSwitchAuth,
     this.onSubmitCompleted,
     this.onTapGoogle,
@@ -352,6 +368,10 @@ class _LoginCard extends StatefulWidget {
   final FormFieldValidator<String> emailValidator;
   final FormFieldValidator<String> passwordValidator;
   final Size constraints;
+  final Icon emailIcon;
+  final Icon passwordIcon;
+  final Icon showPasswordIcon;
+  final Icon hidePasswordIcon;
   final Function onSwitchRecoveryPassword;
   final Function onSwitchAuth;
   final Function onSubmitCompleted;
@@ -521,7 +541,7 @@ class _LoginCardState extends State<_LoginCard> with TickerProviderStateMixin {
       loadingController: _loadingController,
       interval: _nameTextFieldLoadingAnimationInterval,
       labelText: messages.usernameHint,
-      prefixIcon: Icon(FontAwesomeIcons.at, size: 17),
+      prefixIcon: widget.emailIcon,
       keyboardType: TextInputType.emailAddress,
       textInputAction: TextInputAction.next,
       onFieldSubmitted: (value) {
@@ -535,6 +555,9 @@ class _LoginCardState extends State<_LoginCard> with TickerProviderStateMixin {
   Widget _buildPasswordField(double width, LoginMessages messages, Auth auth) {
     return AnimatedPasswordTextFormField(
       animatedWidth: width,
+      prefixIcon: widget.passwordIcon,
+      showPasswordIcon: widget.showPasswordIcon,
+      hidePasswordIcon: widget.hidePasswordIcon,
       loadingController: _loadingController,
       interval: _passTextFieldLoadingAnimationInterval,
       labelText: messages.passwordHint,
