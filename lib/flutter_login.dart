@@ -599,6 +599,7 @@ class _FlutterLoginState extends State<FlutterLogin> with TickerProviderStateMix
         ),
       ],
       child: Scaffold(
+        backgroundColor: Colors.transparent,
         // resizeToAvoidBottomInset: false,
         body: Stack(
           children: <Widget>[
