@@ -24,9 +24,9 @@ Flushbar showSuccessToast(BuildContext context, String message) {
   )..show(context);
 }
 
-Flushbar showErrorToast(BuildContext context, String message) {
+Flushbar showErrorToast(BuildContext context, String title, String message) {
   return Flushbar(
-    title: 'Error',
+    title: title,
     message: message,
     icon: Icon(
       Icons.error,

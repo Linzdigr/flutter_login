@@ -521,7 +521,7 @@ class _LoginCardState extends State<_LoginCard> with TickerProviderStateMixin {
     _submitController.reverse();
 
     if (!DartHelper.isNullOrEmpty(error)) {
-      showErrorToast(context, error);
+      showErrorToast(context, 'Erreur', error);
       Future.delayed(const Duration(milliseconds: 271), () {
         setState(() => _showShadow = true);
       });
@@ -845,7 +845,7 @@ class _RecoverCardState extends State<_RecoverCard>
     final error = await auth.onRecoverPassword(auth.email);
 
     if (error != null) {
-      showErrorToast(context, error);
+      showErrorToast(context, 'Erreur', error);
       setState(() => _isSubmitting = false);
       _submitController.reverse();
       return false;
